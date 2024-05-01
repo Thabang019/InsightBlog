@@ -29,16 +29,26 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request) : RedirectResponse
-    {
-        $validated = $request->validate([
-            'message' => 'required|string|max:1500',
-        ]);
- 
-        $request->user()->posts()->create($validated);
- 
-        return redirect(route('posts.index'));
+   /**
+ * Store a newly created resource in storage.
+ */
+public function store(Request $request) : RedirectResponse
+{
+    $validated = $request->validate([
+        'title' => 'required|string|max:30',
+        'message' => 'required|string|max:1500',
+    ]);
+
+    if ($request->user() && $request->user()->isAdmin()) {
+        $user = $request->user();
+        $post = $user->posts()->create($validated);
+    
+        return redirect()->route('posts.show', ['post' => $post])->with('success', 'Blog Post Successfully Posted.');
     }
+
+    return redirect()->route('dashboard')->with('error', 'You are not authorized to perform this action.');
+}
+
 
     /**
      * Display the specified resource.
