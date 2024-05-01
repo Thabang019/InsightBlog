@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
+use App\Models\Comment;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
-class PostController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index() : View
     {
-        return view('posts.index');
+        return view('posts.show');
     }
 
     /**
@@ -23,7 +22,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+       
     }
 
     /**
@@ -32,28 +31,28 @@ class PostController extends Controller
     public function store(Request $request) : RedirectResponse
     {
         $validated = $request->validate([
-            'message' => 'required|string|max:1500',
+            'message' => 'required|string|max:255',
+            'post_id' => 'required',
         ]);
+       
+        $comment = $request->user()->comments()->create($validated);
  
-        $request->user()->posts()->create($validated);
- 
-        return redirect(route('posts.index'));
+        return redirect(route('posts.show', ['post' => $comment->post_id]));
     }
+    
 
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show(Comment $comment)
     {
-        $comments = $post->comments;
-        return view('posts.show', compact('post', 'comments'));
-       
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Post $post)
+    public function edit(Comment $comment)
     {
         //
     }
@@ -61,7 +60,7 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, Comment $comment)
     {
         //
     }
@@ -69,7 +68,7 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Post $post)
+    public function destroy(Comment $comment)
     {
         //
     }
