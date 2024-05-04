@@ -21,11 +21,34 @@
                 <p class="opacity-70 ml-10">
                     <strong>Updated at: </strong> {{ $post->updated_at->diffForHumans() }}
                 </p>
+
+                @unless ($post->created_at->eq($post->updated_at))
+                <small class="text-sm text-gray-600"> &middot; {{ __('edited') }}</small>
+                @endunless
+
                 <p class="opacity-70 ml-10">
                     <strong>Written by: </strong> {{ $post->user->name }}
                 </p>
             </div>
             <div class="my-6 p-6 bg-white border-b border-gray-200 shadow-sm sm:rounded-lg">
+
+                @if ($post->user->is(auth()->user()))
+                    <x-dropdown>
+                    <x-slot name="trigger">
+                    <button>
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                       <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
+                         </svg>
+                       </button>
+                    </x-slot>
+                          <x-slot name="content">
+                                <x-dropdown-link :href="route('posts.edit', $post)">
+                                {{ __('Edit') }}
+                                </x-dropdown-link>
+                            </x-slot>
+                    </x-dropdown>
+                @endif
+
                 <h2 class="font-bold text-4xl">
                  {{ $post->title }}
                 </h2>

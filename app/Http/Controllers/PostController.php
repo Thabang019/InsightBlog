@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
@@ -63,17 +65,39 @@ public function store(Request $request) : RedirectResponse
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Post $post)
+    public function edit(Post $post, Request $request) : View
     {
-        //
+
+    if ($request->user() && $request->user()->isAdmin()) {
+        Gate::authorize('update', $post);
+        
+        return view('posts.edit', [
+            'post' => $post,
+        ]);
+        } else {
+            return redirect()->route('dashboard')->with('error', 'You are not authorized to edit this post.');
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, Post $post) : RedirectResponse
     {
-        //
+        
+        $validated = $request->validate([
+            'title' => 'required|string|max:30',
+            'message' => 'required|string|max:1500',
+        ]);
+  
+        if ($request->user() && $request->user()->isAdmin()) {
+            Gate::authorize('update', $post);
+            $post->update($validated);
+
+            return redirect()->route('posts.show', ['post' => $post])->with('success', 'Blog Post Successfully Updated');
+ 
+        }
+        return redirect()->route('dashboard')->with('error', 'You are not authorized to edit this post.');
     }
 
     /**

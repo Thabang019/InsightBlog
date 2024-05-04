@@ -10,15 +10,17 @@
 </head>
 
 <body class="h-full">
+  
 
 <div class="min-h-full">
+
 
       <nav class="bg-gray-500">
         <div class="mx-auto max-w-10xl px-4 sm:px-6 lg:px-8">
           <div class="flex h-25 items-center justify-between">
             <div class="flex items-center">
               <div class="flex-shrink-0">
-                <img class="h-10 w-60 mr-5 py-4" src={{ asset('insightlogo.png') }} alt="Bursary Management">
+                <img class="h-20 w-40 mr-5 py-4" src={{ asset('insightblog.png') }} alt="Insightblog">
               </div>
               <div class="hidden md:block">
                 <div class="ml-10 flex items-baseline space-x-4">
@@ -75,7 +77,7 @@
   <div class="container mx-auto flex items-center justify-between">
 
               <div class="flex items-center">
-                  <img src={{ asset('insightlogo.png') }} alt="Logo" class="h-200 w-400 mr-4">
+                  <img src={{ asset('insightblog.png') }} alt="insightblog" class="h-200 w-400 mr-4">
               </div>
 
               <div>

@@ -3,7 +3,7 @@
     <x-slot name="title">InsightBlog</x-slot>
     <x-slot name="heading">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Home') }}
+                {{ __('Posts') }}
             </h2>
     </x-slot>
 
