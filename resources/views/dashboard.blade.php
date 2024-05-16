@@ -13,20 +13,26 @@
     @endif
 
     <div class="max-w-4xl mx-auto mb-8">
-    <div class="py-12">
+        @if(count($posts) > 0)
+        <div class="py-12">
             @foreach ($posts as $post)
-            <div class="my-6 p-6 bg-white border-b border-gray-200 shadow-sm sm:rounded-lg">
-                <h2 class="font-bold text-2xl">
-                    <a href="{{ route('posts.show', $post) }}">{{$post->title}}</a>
-                </h2>
-                <p class="mt-2">
-                    {{ Str::limit($post->message, 200)}}
-                </p>
-                <span class="block mt-4 text-sm opacity-70 text-gray-600">Author : {{ $post->user->name }}</span>
-                <span class="block mt-4 text-sm opacity-70">Written : {{ $post->created_at->format('j M Y, g:i a') }}</span>
-            </div>
+                <div class="my-6 p-6 bg-white border-b border-gray-200 shadow-sm sm:rounded-lg">
+                    <h2 class="font-bold text-2xl">
+                        <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
+                    </h2>
+                    <p class="mt-2">
+                        {{ Str::limit($post->message, 200) }}
+                    </p>
+                    <span class="block mt-4 text-sm opacity-70 text-gray-600">Author: {{ $post->user->name }}</span>
+                    <span class="block mt-4 text-sm opacity-70">Written: {{ $post->created_at->format('j M Y, g:i a') }}</span>
+                </div>
             @endforeach
         </div>
+    @else
+        <div class="py-12  text-center font-semibold text-xl text-gray-800 leading-tight">
+            <p>No posts to display at the moment</p>
+        </div>
+    @endif
     </div>
 
 </x-app-layout>

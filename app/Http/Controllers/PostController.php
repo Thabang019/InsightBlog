@@ -103,8 +103,16 @@ public function store(Request $request) : RedirectResponse
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Post $post)
+    public function destroy(Post $post, Request $request) : RedirectResponse
     {
-        //
+        if ($request->user() && $request->user()->isAdmin()) {
+            Gate::authorize('delete', $post);
+            $post->delete();
+            return redirect(route('dashboard'));
+
+            } else {
+                return redirect()->route('dashboard')->with('error', 'You are not authorized to delete this post.');
+            }
+       
     }
 }
