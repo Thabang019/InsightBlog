@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -68,8 +69,11 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Comment $comment)
+    public function destroy(Comment $comment) : RedirectResponse
     {
-        //
+        Gate::authorize('delete', $comment);
+        $post = $comment->post;
+        $comment->delete();
+        return redirect()->route('posts.show', ['post' => $post]);
     }
 }
