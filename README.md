@@ -75,18 +75,18 @@ Pre- requisites before using the web app.
 • Go to the [Mailtrap website](https://mailtrap.io/) and sign up for an account.
 • To retrieve your Mailtrap username and password navigate to email testing and click on inbox
 
-•In the application code, locate the .env file and add the following email configuration variables:
--MAIL_MAILER=smtp
--MAIL_HOST=sandbox.smtp.mailtrap.io
--MAIL_PORT=2525
--MAIL_USERNAME=<Your Mailtrap username>
--MAIL_PASSWORD=<Your Mailtrap password>
--MAIL_ENCRYPTION=tls
+In the application code, locate the .env file and add the following email configuration variables:
+1. MAIL_MAILER=smtp
+2. MAIL_HOST=sandbox.smtp.mailtrap.io
+3. MAIL_PORT=2525
+4. MAIL_USERNAME=<Your Mailtrap username>
+5. MAIL_PASSWORD=<Your Mailtrap password>
+6. MAIL_ENCRYPTION=tls
 
 Replace the existing values for email username and password with your Mailtrap credentials. These are the specific credentials provided by Mailtrap when you create an inbox, and they are not the same as your regular email login details.
 
 2.Granting Admin Privileges 
-• Login to mySql database via phpmyadmin.
+- Login to mySql database via phpmyadmin.
 • Locate and select InsightBlog.
 • Locate the user in the "users" table.
 • Set the "is_admin" value to true for the user to grant admin privileges
@@ -94,28 +94,27 @@ Replace the existing values for email username and password with your Mailtrap c
 User Guide
 
 User Registration
-1.	Accessing the Registration Page To begin using the blog platform, users can navigate to the registration page by clicking on the "Register" link in the top navigation bar.
-2.	Filling Out the Registration Form
-•	In the registration form, users need to provide their full name, email address and password.
-•	Once all required fields are filled out, users can click the "Register" button to submit the form.
-3.	Validation and Confirmation
-•	The system validates the form to ensure that the email address provided is unique and the password meets the necessary security criteria.
-•	Upon successful validation, users receive a confirmation email indicating that their registration was successful including confirmation link. 
-4.	Logging In
-•	Registered users can login using their register email address and password to access their account.
-5.	Password Recovery
-•	If users forget their password, they should use the "Forgot Password" link on the login page to initiate the password recovery process.
+1.	Accessing the Registration Page
+-   To begin using the blog platform, users can navigate to the registration page by clicking on the "Register" link in the top navigation bar.
+3.	Filling Out the Registration Form
+-	In the registration form, users need to provide their full name, email address and password.Once all required fields are filled out, users can click the "Register" button to submit the form.
+4.	Validation and Confirmation
+-	The system validates the form to ensure that the email address provided is unique and the password meets the necessary security criteria. Upon successful validation, users receive a confirmation email indicating that their registration was successful including confirmation link. 
+5.	Logging In
+-	Registered users can login using their register email address and password to access their account.
+6.	Password Recovery
+-	If users forget their password, they should use the "Forgot Password" link on the login page to initiate the password recovery process.
 
 Using the Blog Platform
 1.	Accessing the Blog Dashboard
-•	Upon logging in, users are directed to the blog dashboard where they can create, browse blog posts.
+-	Upon logging in, users are directed to the blog dashboard where they can create, browse blog posts.
 2.	Creating a Blog Post
-•	To create a new blog post, users can click on the "Create Post" button, which will open a form for adding the post title, content.
+-	To create a new blog post, users can click on the "Create Post" button, which will open a form for adding the post title, content.
 3.	Editing and Deleting Posts
-•	Author(admin) can view a list of their existing blog posts and have the option to edit or delete any of them as needed.
+-   Author(admin) can view a list of their existing blog posts and have the option to edit or delete any of them as needed.
 4.	Viewing and Commenting on Posts
-•	Reader and author(admin) can browse through published posts, read them, and leave comments to engage in discussions with other readers or the author.
+-	Reader and author(admin) can browse through published posts, read them, and leave comments to engage in discussions with other readers or the author.
 5.	Managing Comments
-•	For readers and admin, there is only one option to manage comments, deleting them.
+-	For readers and admin, there is only one option to manage comments, deleting them.
 6.	User Roles and Permissions
 •	The blog platform has two user roles (admin and reader) with varying permissions for managing content.
