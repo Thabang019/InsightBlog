@@ -103,7 +103,7 @@ User Registration
 5.	Logging In:
 -	Registered users can login using their register email address and password to access their account.
 6.	Password Recovery:
--	If users forget their password, they should use the "Forgot Password" link on the login page to initiate the password recovery process.
+-	If users forget their password, they should use the "Forgot Password" link on the login page and enter registered email address to initiate the password recovery process.
 
 Using the Blog Platform
 
