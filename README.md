@@ -7,60 +7,115 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## About InsightBlog
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Technology Stack:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+1. Backend Framework: Laravel
+2. Authentication: Laravel Breeze
+3. Frontend: Blade Template Engine
+4. Database: MySQL
+5. Email Services: Mailtrap
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Dependencies:
 
-## Learning Laravel
+1. XAMPP
+- XAMPP provides an easy-to-install Apache-MySQL-PHP-PhpMyAdmin environment that is suitable for
+running the Laravel project locally. Download and install XAMPP from the official website: [XAMPP
+Official Website
+](https://www.apachefriends.org/index.html)
+2. PHP Version:
+- Ensure that a compatible version of PHP is installed (recommended: PHP 7.2 or higher) to run the Laravel
+project. In the Git Bash terminal, run the following command: php -v
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+3. Composer:
+- Ensure that Composer is installed to manage the project's dependencies. If Composer is not already
+installed, you can download it from [Composer's official website](https://getcomposer.org/).
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+4. Node.js
+- Ensure that Node.js and npm are installed on the local machine. You can download and install [Node.js
+from the official website:](https://nodejs.org/en)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+6. Laravel Framework:
+- The project utilizes Laravel framework. Ensure that the local environment has Laravel installed. You can
+install Laravel using Composer by running the following command: composer global require
+laravel/installer
 
-## Laravel Sponsors
+7. Git
+- Install Git to clone the project repository and manage version control. Git can be downloaded and
+installed from the [official Git website:](https://git-scm.com/)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Environment Setup:
 
-### Premium Partners
+1. Clone the Project Repository:
+- Clone the project repository from the current version control system (Git) to your local machine.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+2. Install Dependencies:
+- Navigate to the project directory and run the following command to install the project dependencies
+using Composer by running the following command: composer install
 
-## Contributing
+3. Migrate Database:
+- Run the database migrations to create the necessary tables in the database by running the following
+command: php artisan migrate
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+4. Install Node.js Packages:
+- Navigate to the project directory using git and run the following command to install the necessary Node.js
+packages: npm install
 
-## Code of Conduct
+5. Run Laravel Mix:
+- The project uses Laravel Mix for asset compilation (e.g., SCSS, JavaScript), run the following command
+to compile assets: npm run dev
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+7. Start the Development Server:
+- To start the development server, run the following command: php artisan serve
 
-## Security Vulnerabilities
+Pre- requisites before using the web app.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+1. Sign Up for Mailtrap Email Testing:
+- Go to the [Mailtrap website](https://mailtrap.io/) and sign up for an account.
+- To retrieve your Mailtrap username and password navigate to email testing and click on inbox
 
-## License
+2. In the application code, locate the .env file and add the following email configuration variables:
+- MAIL_MAILER=smtp
+- MAIL_HOST=sandbox.smtp.mailtrap.io
+- MAIL_PORT=2525
+- MAIL_USERNAME=<Your Mailtrap username>
+- MAIL_PASSWORD=<Your Mailtrap password>
+- MAIL_ENCRYPTION=tls
+  
+-Replace the existing values for email username and password with your Mailtrap credentials. These are the specific credentials provided by Mailtrap when you create an inbox, and they are not the same as your regular email login details.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+2.Granting Admin Privileges:
+- Login to mySql database via phpmyadmin.
+- Locate and select InsightBlog.
+- Locate the user in the "users" table.
+- Set the "is_admin" value to true for the user to grant admin privileges
+
+User Guide
+
+User Registration
+1.	Accessing the Registration Page:
+-   To begin using the blog platform, users can navigate to the registration page by clicking on the "Register" link in the top navigation bar.
+3.	Filling Out the Registration Form:
+-	In the registration form, users need to provide their full name, email address and password.Once all required fields are filled out, users can click the "Register" button to submit the form.
+4.	Validation and Confirmation:
+-	The system validates the form to ensure that the email address provided is unique and the password meets the necessary security criteria. Upon successful validation, users receive a confirmation email indicating that their registration was successful including confirmation link. 
+5.	Logging In:
+-	Registered users can login using their register email address and password to access their account.
+6.	Password Recovery:
+-	If users forget their password, they should use the "Forgot Password" link on the login page and enter registered email address to initiate the password recovery process.
+
+Using the Blog Platform
+
+1.	Accessing the Blog Dashboard:
+-	Upon logging in, users are directed to the blog dashboard where they can create, browse blog posts.
+2.	Creating a Blog Post:
+-	To create a new blog post, users can click on the "Create Post" button, which will open a form for adding the post title, content.
+3.	Editing and Deleting Posts:
+-   Author(admin) can view a list of their existing blog posts and have the option to edit or delete any of them as needed.
+4.	Viewing and Commenting on Posts:
+-	Reader and author(admin) can browse through published posts, read them, and leave comments to engage in discussions with other readers or the author.
+5.	Managing Comments:
+-	For readers and admin, there is only one option to manage comments, deleting them.
+6.	User Roles and Permissions:
+-	The blog platform has two user roles (admin and reader) with varying permissions for managing content.
