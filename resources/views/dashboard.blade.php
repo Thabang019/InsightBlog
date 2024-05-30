@@ -17,6 +17,13 @@
         <div class="py-12">
             @foreach ($posts as $post)
                 <div class="my-6 p-6 bg-white border-b border-gray-200 shadow-sm sm:rounded-lg">
+
+                    @if ($post->image && file_exists(public_path($post->image)))
+                    <img src="{{ asset($post->image) }}" alt="{{ $post->title }}" class="mt-4 w-full h-auto">
+                    @else
+                    <img src="{{ asset('wallpapersden.com_anime-landscape-hd-ai-city_1952x1120.jpg') }}" alt="wallpapersden.com_anime-landscape-hd-ai-city_1952x1120" class="mt-4 w-full h-auto">
+                    @endif
+
                     <h2 class="font-bold text-2xl">
                         <a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a>
                     </h2>

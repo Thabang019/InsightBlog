@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -37,12 +38,24 @@ class PostController extends Controller
 public function store(Request $request) : RedirectResponse
 {
     $validated = $request->validate([
+        'image' => 'nullable|image|max:2048',
         'title' => 'required|string|max:30',
         'message' => 'required|string|max:1500',
     ]);
 
     if ($request->user() && $request->user()->isAdmin()) {
         $user = $request->user();
+
+        if ($request->hasFile('image')) {
+
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $fileName = time().'.'.$extension;
+            $imagePath = 'storage/';
+            $file->move($imagePath, $fileName);
+            $validated['image'] = $imagePath.$fileName;
+        }
+
         $post = $user->posts()->create($validated);
     
         return redirect()->route('posts.show', ['post' => $post])->with('success', 'Blog Post Successfully Posted.');
@@ -86,12 +99,23 @@ public function store(Request $request) : RedirectResponse
     {
         
         $validated = $request->validate([
+            'image' => 'nullable|image|max:2048',
             'title' => 'required|string|max:30',
             'message' => 'required|string|max:1500',
         ]);
   
         if ($request->user() && $request->user()->isAdmin()) {
             Gate::authorize('update', $post);
+
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $extension = $file->getClientOriginalExtension();
+                $fileName = time().'.'.$extension;
+                $imagePath = 'storage/';
+                $file->move($imagePath, $fileName);
+                $validated['image'] = $imagePath.$fileName;
+            }
+            
             $post->update($validated);
 
             return redirect()->route('posts.show', ['post' => $post])->with('success', 'Blog Post Successfully Updated');
