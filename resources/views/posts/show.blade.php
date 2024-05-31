@@ -57,9 +57,9 @@
                 @endif
 
                 @if ($post->image && file_exists(public_path($post->image)))
-                <img src="{{ asset($post->image) }}" alt="{{ $post->title }}" class="mt-4 w-full h-80">
+                <img src="{{ asset($post->image) }}" alt="{{ $post->title }}" class="mt-4 w-full h-90">
                 @else
-                <img src="{{ asset('wallpapersden.com_anime-landscape-hd-ai-city_1952x1120.jpg') }}" alt="wallpapersden.com_anime-landscape-hd-ai-city_1952x1120" class="mt-4 w-full h-80">
+                <img src="{{ asset('wallpapersden.com_anime-landscape-hd-ai-city_1952x1120.jpg') }}" alt="wallpapersden.com_anime-landscape-hd-ai-city_1952x1120" class="mt-4 w-full h-90">
                 @endif
 
                 <h2 class=" mt-2 font-bold text-4xl">

@@ -100,7 +100,7 @@ public function store(Request $request) : RedirectResponse
         
         $validated = $request->validate([
             'image' => 'nullable|image|max:2048',
-            'title' => 'required|string|max:30',
+            'title' => 'required|string|max:50',
             'message' => 'required|string|max:1500',
         ]);
   
