@@ -1,0 +1,109 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db
+      - redis
+    environment:
+      APP_NAME: ${APP_NAME:-Laravel}
+      APP_ENV: ${APP_ENV:-local}
+      APP_KEY: ${APP_KEY:-base64:generatedkeyhere}
+      APP_DEBUG: ${APP_DEBUG:-true}
+      APP_URL: ${APP_URL:-http://localhost}
+      DB_CONNECTION: ${DB_CONNECTION:-mysql}
+      DB_HOST: db
+      DB_PORT: ${DB_PORT:-3306}
+      DB_DATABASE: ${DB_DATABASE:-insightblog}
+      DB_USERNAME: ${DB_USERNAME:-root}
+      DB_PASSWORD: ${DB_PASSWORD:-secret}
+      SESSION_DRIVER: ${SESSION_DRIVER:-database}
+      CACHE_STORE: ${CACHE_STORE:-database}
+      QUEUE_CONNECTION: ${QUEUE_CONNECTION:-database}
+      REDIS_HOST: redis
+      MAIL_MAILER: ${MAIL_MAILER:-smtp}
+      MAIL_HOST: ${MAIL_HOST:-sandbox.smtp.mailtrap.io}
+      MAIL_PORT: ${MAIL_PORT:-2525}
+      MAIL_USERNAME: ${MAIL_USERNAME:-52d599a9fd0456}
+      MAIL_PASSWORD: ${MAIL_PASSWORD:-1fc66ce74f840d}
+      MAIL_ENCRYPTION: ${MAIL_ENCRYPTION:-tls}
+      MAIL_FROM_ADDRESS: ${MAIL_FROM_ADDRESS:-hello@example.com}
+      MAIL_FROM_NAME: ${APP_NAME:-Laravel}
+    command: >
+      bash -c "
+      composer install --no-interaction &&
+      php artisan key:generate --show > /tmp/key &&
+      cp .env.example .env &&
+      sed -i 's|APP_KEY=|APP_KEY='$$(cat /tmp/key)'|' .env &&
+      sed -i 's|DB_HOST=127.0.0.1|DB_HOST=db|' .env &&
+      sed -i 's|DB_PASSWORD=|DB_PASSWORD=secret|' .env &&
+      sed -i 's|REDIS_HOST=127.0.0.1|REDIS_HOST=redis|' .env &&
+      php artisan config:clear &&
+      php artisan migrate --force &&
+      php artisan serve --host=0.0.0.0 --port=80
+      "
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:-insightblog}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-secret}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  node:
+    image: node:18
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+      - /var/www/html/node_modules
+    ports:
+      - "5173:5173"  # Expose Vite port
+    environment:
+      VITE_APP_NAME: ${APP_NAME:-Laravel}
+      VITE_APP_URL: ${APP_URL:-http://localhost:8000}
+    command: >
+      sh -c "npm install && npm run dev -- --host"
+    depends_on:
+      - app
+
+  scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - app
+    command: >
+      sh -c "while true; do
+        php artisan schedule:run --verbose --no-interaction &
+        sleep 60
+      done"
+    volumes:
+      - .:/var/www/html
+
+  queue:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - app
+    command: php artisan queue:work
+    volumes:
+      - .:/var/www/html
+
+volumes:
+  mysql_data:
+  redis_data:
