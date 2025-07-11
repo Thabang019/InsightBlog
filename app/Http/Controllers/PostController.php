@@ -39,8 +39,8 @@ public function store(Request $request) : RedirectResponse
 {
     $validated = $request->validate([
         'image' => 'nullable|image|max:2048',
-        'title' => 'required|string|max:30',
-        'message' => 'required|string|max:1500',
+        'title' => 'required|string|max:100',
+        'message' => 'required|string|max:10000',
     ]);
 
     if ($request->user() && $request->user()->isAdmin()) {
